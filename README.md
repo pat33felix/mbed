@@ -2,8 +2,11 @@
 
 ## Installation des outils Mbed sur Windows
 
-Liens à consulter : ce qui suit est une quasiment copie du contenu de ce lien.
-- https://github.com/eirbot/mbed-os-template-eirbot/blob/main/README.md
+Liens à consulter : 
+- Ce qui suit est une quasiment copie du contenu de ce lien :
+https://github.com/eirbot/mbed-os-template-eirbot/blob/main/README.md
+- Autre lien utile :
+https://www2.ciel-kastler.fr/docs/mbed6tron/
 
 
 ### Installation du compilateur ``ARM GCC``
