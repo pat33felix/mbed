@@ -222,13 +222,78 @@ Préciser la cible pour la compilation :
 cp zest-core-stm32l4a6rg/custom_targets.json . 
 ```
 
-Pour compiler le projet : 
 
+
+Pour compiler le projet : 
 ```shell
 mbed compile
 ```
 
-Pour uploader le programme sur une carte : mbed compile --flash
+## Déboguer avec `J-Link EDU Mini` (via VSCode)
+
+1. **J-Link EDU Mini**
+
+La J-Link EDU Mini est une sonde de débogage économique de SEGGER, conçue pour des usages éducatifs. Elle supporte les microcontrôleurs ARM Cortex-M et offre les fonctionnalités suivantes :
+
+- **Débogage** : Permet le débogage des applications embarquées.
+- **Programmation** : Supporte la programmation des microcontrôleurs.
+- **Compatibilité** : Compatible avec les environnements de développement populaires comme vscode.
+
+2. **Extension Cortex-Debug**
+
+Installer l'extension `Cortex-Debug` qui prend en charge le débogage des microcontrôleurs ARM Cortex-M avec la sonde  `J-Link EDU Mini` (voir documentation).
+
+3. **Configurer votre espace de travail : le fichier `launch.json`**
+
+Dans le dossier `.vscode` (à créer s'il n'existe pas), ajoutez le fichier `launch.json` avec la configuration suivante :
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug ROBOT with JLink",
+            "cwd": "${workspaceFolder}",
+            "executable": "./robot/BUILD/ZEST_CORE_STM32L4A6RG/GCC_ARM/robot.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "device": "STM32L4A6RG",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none",
+            "interface": "swd",
+            "servertype": "jlink"
+        }
+    ]
+}
+```
+La ligne :
+```json
+            "executable": "./robot/BUILD/ZEST_CORE_STM32L4A6RG/GCC_ARM/robot.elf",
+```
+est à adapter pour cibler votre fichier binaire (`.elf`).
 
 
+4. **Lancer le débogage** :
+    - Connectez la J-Link EDU Mini à votre microcontrôleur et à votre ordinateur.
+    - Cliquez sur `Start Debug Session` pour lancer le débogage avec la configuration souhaitée.
+
+Le debuger chargera votre programme en mémoire (s'il n'est pas déjà flashé) et démarrera le débogage.
+
+Vous êtes maintenant en mesure de déboguer vos applications embarquées en utilisant la J-Link EDU Mini directement depuis VSCode.
+
+Fonctionnalités :
+
+- Breakpoints : Ajoutez des points d'arrêt dans ton code pour suspendre l'exécution.
+- Step In/Out/Over : Exécutez le code pas à pas pour observer le comportement.
+- Inspecter les variables : vous pouvez voir la valeur des variables globales, locales ou même des registres.
+- Arrêter et analyser l'exécution
+
+À tout moment, vous pouvez Suspendre ou Stopper l'exécution pour inspecter l'état du microcontrôleur.
+
+- Résumé des commandes/raccourcis utiles :
+    - F5	Démarre/continue le débogage
+    - F10	Exécute la ligne courante (Step Over/Pas à pas principal)
+    - F11	Entre dans la fonction (Step In/Pas à pas détaillé)
+    - Shift + F11	Sort de la fonction (Step Out/Pas à pas sortant)
+    - Shift + F5	Arrêter le débogage
 
