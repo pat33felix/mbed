@@ -112,3 +112,4 @@ Pour basculer d'une branche à une autre :
 git switch dev
 ```
 
+# Tuto Git en distant
