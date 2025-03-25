@@ -113,3 +113,5 @@ git switch dev
 ```
 
 # Tuto Git en distant
+
+## Partie 1
